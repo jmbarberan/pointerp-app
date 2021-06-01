@@ -93,6 +93,8 @@ const clinica = {
       eliminados: false,
       lista: [],
     },
+    examenesBase: [],
+    examenesCache: []
   },
   getters: {
     buscaPacienteTexto: state => state.tablasBuscador.texto,
@@ -587,16 +589,19 @@ const clinica = {
     },
     // TABLAS
     async examenesLista(context) {
-      const response = await axios.get(this.$app.appConfig.apiUrl + examenesLista(), context.rootState.remotoConfig)
-        .catch(e => {
-          return { 
-            id: -1, 
-            respuesta: e
-          };
-        });
+      if (context.state.examenesBase.length <= 0) {
+        const response = await axios.get(this.$app.appConfig.apiUrl + examenesLista(), context.rootState.remotoConfig)
+          .catch(e => {
+            return { 
+              id: -1, 
+              respuesta: e
+            };
+          });
+        context.state.examenesBase = response.data
+      }
       return {
         id: 1,
-        respuesta: response
+        respuesta: context.state.examenesBase
       };
     },
     async registrosPorTabla(context, p) {
@@ -615,6 +620,13 @@ const clinica = {
     async plantillasPorEstado(context, p) {
       return await axios.get(this.$app.appConfig.apiUrl + plantillasPorEstado(p));
     },
+    examenesCargarCache({state, dispatch}) {
+      dispatch("registrosPorTabla", {
+        id: 12 // Tipos de identificacion
+      }).then(function(r) {
+        state.examenesCache = r.respuesta.data
+      })
+    }
   }
 }
 

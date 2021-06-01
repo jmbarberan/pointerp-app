@@ -335,6 +335,9 @@
                 <h4 class="mt-4 ml-2">{{ $t('vista.clinica.consultas.valoracion-cardio') }}</h4>
                 <b-row class="ml-1 mr-1">
                   <b-colxx md="4" lg="3" sm="12">
+                    <b-form-input v-model="valoraCardioDatos.solicitante" placeholder="Medico solicitante"/>
+                  </b-colxx>
+                  <b-colxx md="4" lg="3" sm="12">
                     <b-form-input v-model="valoraCardioDatos.paciente" placeholder="Paciente"/>
                   </b-colxx>
                   <b-colxx md="4" lg="3" sm="12">
@@ -351,6 +354,9 @@
                   </b-colxx>
                   <b-colxx md="4" lg="3" sm="12">
                     <b-form-input v-model="valoraCardioDatos.diabetico" placeholder="Diabetico(a)"/>
+                  </b-colxx>
+                  <b-colxx md="4" lg="3" sm="12">
+                    <b-form-input v-model="valoraCardioDatos.dislipidemia" placeholder="Dislipidemia"/>
                   </b-colxx>
                   <b-colxx md="4" lg="3" sm="12">
                     <b-form-input v-model="valoraCardioDatos.peso" placeholder="Peso (Kg)"/>
@@ -410,13 +416,16 @@
                     <b-form-input v-model="valoraCardioDatos.escala" placeholder="Escala"/>
                   </b-colxx>
                   <b-colxx md="4" lg="3" sm="12">
-                    <b-form-input v-model="valoraCardioDatos.sugerencia" placeholder="Sugerencia"/>
+                    <b-form-input v-model="valoraCardioDatos.tipocirugia" placeholder="Tipo de cirugia"/>
                   </b-colxx>
                   <b-colxx md="4" lg="3" sm="12">
                     <b-form-input v-model="valoraCardioDatos.profesional" placeholder="Medico"/>
                   </b-colxx>
                   <b-colxx md="4" lg="3" sm="12">
                     <b-form-input v-model="valoraCardioDatos.profesional_registro" placeholder="Registro profesional"/>
+                  </b-colxx>
+                  <b-colxx md="12" lg="12" sm="12">
+                    <b-form-textarea v-model="valoraCardioDatos.sugerencia" placeholder="Sugerencias"/>
                   </b-colxx>
                 </b-row>
               </template>
@@ -568,7 +577,7 @@
                 :key="exa.id"
                 :label="exa.denominacion"
               >
-                <b-form-checkbox-group 
+                <b-form-checkbox-group
                   v-model="exa.seleccionado"
                   :options="exa.items"
                   text-field="denominacion"
@@ -733,7 +742,7 @@ export default {
         descripcion: ''
       },
       selProductoVer: false,
-      valoraCardio: '<p class="ql-align-center"><strong class="ql-size-large">VALORACION CARDIOLOGICA</strong></p><p><strong>NOMBRE</strong>: :paciente: 		<strong>FECHA</strong>: :fecha:</p><p><strong>EDAD</strong>: :paciente_edad:   					<strong>SEXO</strong>: :paciente_sexo:</p><p class="ql-align-center"><strong>FACTORES DE RIESGO</strong></p><p><br></p><p class="ql-align-justify"><strong>HIPERTENSION</strong>: :hipertension:  		<strong>DIABETICO</strong>: :diabetico:  </p><p class="ql-align-justify"><strong>PESO</strong>: :peso: 		<strong>TALLA</strong>: :talla: 		<strong>IMC</strong>.: :imc:</p><p><br></p><p><strong>MOTIVO DE CONSULTA:</strong> :motivo:</p><p><br></p><p><strong>ANTECEDENTES PERSONALES</strong>: :antecedentes_personales:</p><p><strong>HABITOS</strong>: :habitos:</p><p><strong>EXAMEN FISICO</strong>: :examen_fisico:</p><p><strong>SIGNOS VITALES</strong>: </p><p>Presion Arterial (mmHG): 	Supina: :presion: mmHG</p><p><br></p><p class="ql-align-center"><strong class="ql-size-large">INTERPRETACION ELECTROCARDIOGRAFICA:</strong></p><p><br></p><p class="ql-align-justify"><strong>Ritmo</strong>: :ritmo:      					<strong>F. Auricular</strong>: :fauricular:					<strong>F. Ventricular</strong>: :fventricular:</p><p><strong>Eje electrico</strong>: :ejelec:  							<strong>Complejo QRS</strong>: :complejo_qrs:</p><p><strong>Onda T.</strong> :ondat:										<strong>Complejo QTC</strong>: :complejo_qtc:</p><p><strong>ELECTROCARDIOGRAMA:</strong> :observacion:</p><p><br></p><p><strong>Dx</strong>: :dx:</p><p><br></p><p><strong>RIESGO QUIRURGICO: </strong></p><p>RIESGO :riesgo_nivel: :escala:</p><p><strong>SUGERENCIA</strong>: :sugerencia:</p><p><br></p><p><br></p><p class="ql-align-center">ATENTAMENTE</p><p class="ql-align-center"><br></p><p class="ql-align-center"><strong>:profesional:</strong></p><p class="ql-align-center">:profesional_registro:</p>',
+      valoraCardio: '<p class="ql-align-center"><strong class="ql-size-large">VALORACION CARDIOLOGICA</strong></p><p>:solicitante:</p><p><strong>NOMBRE</strong>: :paciente: </p><p><strong>EDAD</strong>: :paciente_edad:   					<strong>SEXO</strong>: :paciente_sexo:</p><p><strong>FECHA</strong>: :fecha:</p><p class="ql-align-center"><strong class="ql-size-large">FACTORES DE RIESGO</strong></p><p><br></p><p class="ql-align-justify"><strong>HIPERTENSION</strong>: :hipertension:  		<strong>DIABETICO</strong>: :diabetico:  <strong>DISLIPIDEMIA</strong>: :dislipidemia:  </p><p class="ql-align-justify"><strong>PESO</strong>: :peso: 		<strong>TALLA</strong>: :talla: 		<strong>IMC</strong>.: :imc:</p><p><br></p><p><strong>MOTIVO DE CONSULTA:</strong> :motivo:</p><p><br></p><p><strong>ANTECEDENTES PERSONALES</strong>: :antecedentes_personales:</p><p><strong>HABITOS</strong>: :habitos:</p><p><strong>EXAMEN FISICO</strong>: :examen_fisico:</p><p><strong>SIGNOS VITALES</strong>: </p><p>Presion Arterial (mmHG): 	Supina: :presion: mmHG</p><p><br></p><p class="ql-align-center"><strong class="ql-size-large">INTERPRETACION ELECTROCARDIOGRAFICA:</strong></p><p><br></p><p class="ql-align-justify"><strong>Ritmo</strong>: :ritmo:      					</p><p><strong>F. Auricular</strong>: :fauricular:					<strong>F. Ventricular</strong>: :fventricular:</p><p><strong>Eje electrico</strong>: :ejelec:</p><p><strong>Onda T.</strong> :ondat:										<strong>Complejo QTC</strong>: :complejo_qtc: <strong>Complejo QRS</strong>: :complejo_qrs:</p><p><strong>ELECTROCARDIOGRAMA:</strong> :observacion:</p><p><br></p><p><strong>Dx</strong>: :dx:</p><p><br></p><p class="ql-align-center"><strong class="ql-size-large">VALORACION PREQUIRURGICA</strong></p><p><strong>RIESGO QUIRURGICO: </strong></p><p>RIESGO :riesgo_nivel: :escala:</p><p><strong>TIPO DE CIRUGIA</strong>: :tipocirugia:</p><p><strong>SUGERENCIAS</strong>: :sugerencia:</p><p><br></p><p><br></p><p class="ql-align-center">ATENTAMENTE</p><p class="ql-align-center"><br></p><p class="ql-align-center"><strong>:profesional:</strong></p><p class="ql-align-center"><strong>CARDIOLOGO</strong></p><p class="ql-align-center">:profesional_registro:</p>',
       informeEKG: '<p class="ql-align-center"><strong class="ql-size-large">INFORME DE ELECTROCARDIOGRAMA</strong></p><p><br></p><p><br></p><p><strong>PACIENTE</strong>: :paciente:</p><p><strong>MEDICO SOLICITANTE DEL EKG</strong>: :medicosol:</p><p><strong>FECHA</strong>: :fecha:</p><p><br></p><p><br></p><p class="ql-indent-1"><strong class="ql-size-large">RITMO</strong><span class="ql-size-large">: :ritmo:</span></p><p class="ql-indent-1"><strong class="ql-size-large">FRECUENCIA</strong><span class="ql-size-large">: :frecuencia:</span></p><p class="ql-indent-1"><strong class="ql-size-large">EJE ELECTRICO</strong><span class="ql-size-large">: :ejelec:</span></p><p class="ql-indent-1"><strong class="ql-size-large">ONDA P</strong><span class="ql-size-large">: :ondap:</span></p><p class="ql-indent-1"><strong class="ql-size-large">QRS</strong><span class="ql-size-large">: :qrs:</span></p><p class="ql-indent-1"><strong class="ql-size-large">ST</strong><span class="ql-size-large">: :st:</span></p><p class="ql-indent-1"><strong class="ql-size-large">ONDA T</strong><span class="ql-size-large">: :ondat:</span></p><p class="ql-indent-1"><strong class="ql-size-large">PR</strong><span class="ql-size-large">: :pr:</span></p><p class="ql-indent-1"><strong class="ql-size-large">ARRITMIA</strong><span class="ql-size-large">: :arritmia:</span></p><p class="ql-indent-1"><strong class="ql-size-large">INTERPRETACION DE EKG</strong><span class="ql-size-large">: :interpretacion:</span></p><p class="ql-indent-1"><strong class="ql-size-large">CONCLUSION</strong><span class="ql-size-large">: :conclusion:</span></p><p><br></p><p><br></p><p><br></p><p><br></p><p><br></p><p class="ql-align-center"><strong class="ql-size-large">:profesional:</strong></p><p class="ql-align-center">CARDIOLOGO</p>',
       certificado: '',
       informeEKGDatos: {
@@ -788,7 +797,10 @@ export default {
         escala: '',
         sugerencia: '',
         profesional: '',
-        profesional_registro: ''
+        profesional_registro: '',
+        dislipidemia: '',
+        solicitante: '',
+        tipocirugia: ''
       },
       imprimibleInforme: "",
       examenesSeleccion: [],
@@ -926,11 +938,12 @@ export default {
             id: 0,
             consulta_id: 0,
             examen_id: ex.id,
-            seleccionados: its,
+            seleccionados: its.trimLeft(),
           });
         };
       });
       this.consulta.examenesSel = exs;
+      console.log(exs);
       this.consulta.estado = 3;
       this.$store
         .dispatch("clinica/consultaGuardar", this.consulta)
@@ -980,10 +993,18 @@ export default {
       if (this.consulta.recetaItems.length == 1) {
         this.consulta.recetaItems = [];
       } else {
-        var ret = this.consulta.recetaItems.filter(x => {
-          return x.relProducto.id != p.item.relProducto.id;
-        });
-        this.consulta.recetaItems = ret;  
+        if (this.consulta.id > 0) {
+          var ret = this.consulta.recetaItems.filter(x => {
+            return x.id != p.item.id;
+          });
+          this.consulta.recetaItems = ret;  
+        } else {
+          var ret = this.consulta.recetaItems.filter(x => {
+            return x.relProducto.id != p.item.relProducto.id;
+          });
+          this.consulta.recetaItems = ret;  
+        }
+        
       }
     },
     buscarProducto() {
@@ -999,33 +1020,36 @@ export default {
     },
     cargarValoraCardio() {
       let res = this.valoraCardio.replace(':paciente:', this.valoraCardioDatos.paciente);
-        res = res.replace(':fecha:', this.valoraCardioDatos.fecha);
-        res = res.replace(':paciente_edad:', this.valoraCardioDatos.paciente_edad);
-        res = res.replace(':paciente_sexo:', this.valoraCardioDatos.paciente_sexo);
-        res = res.replace(':hipertension:', this.valoraCardioDatos.hipertension);
-        res = res.replace(':diabetico:', this.valoraCardioDatos.diabetico);
-        res = res.replace(':peso:', this.valoraCardioDatos.peso);
-        res = res.replace(':talla:', this.valoraCardioDatos.talla);
-        res = res.replace(':imc:', this.valoraCardioDatos.imc);
-        res = res.replace(':motivo:', this.valoraCardioDatos.motivo);
-        res = res.replace(':antecedentes_personales:', this.valoraCardioDatos.antecedentes_personales);
-        res = res.replace(':habitos:', this.valoraCardioDatos.habitos);
-        res = res.replace(':examen_fisico:', this.valoraCardioDatos.examen_fisico);
-        res = res.replace(':presion:', this.valoraCardioDatos.presion);
-        res = res.replace(':ritmo:', this.valoraCardioDatos.ritmo);
-        res = res.replace(':fauricular:', this.valoraCardioDatos.fauricular);
-        res = res.replace(':fventricular:', this.valoraCardioDatos.fventricular);
-        res = res.replace(':ejelec:', this.valoraCardioDatos.ejelec);
-        res = res.replace(':complejo_qrs:', this.valoraCardioDatos.complejo_qrs);
-        res = res.replace(':complejo_qtc:', this.valoraCardioDatos.complejo_qtc);
-        res = res.replace(':ondat:', this.valoraCardioDatos.ondat);
-        res = res.replace(':observacion:', this.valoraCardioDatos.observacion);
-        res = res.replace(':dx:', this.valoraCardioDatos.dx);
-        res = res.replace(':riesgo_nivel:', this.valoraCardioDatos.riesgo_nivel);
-        res = res.replace(':escala:', this.valoraCardioDatos.escala);
-        res = res.replace(':sugerencia:', this.valoraCardioDatos.sugerencia);
-        res = res.replace(':profesional:', this.valoraCardioDatos.profesional);
-        res = res.replace(':profesional_registro:', this.valoraCardioDatos.profesional_registro);
+      res = res.replace(':fecha:', this.valoraCardioDatos.fecha);
+      res = res.replace(':paciente_edad:', this.valoraCardioDatos.paciente_edad);
+      res = res.replace(':paciente_sexo:', this.valoraCardioDatos.paciente_sexo);
+      res = res.replace(':hipertension:', this.valoraCardioDatos.hipertension);
+      res = res.replace(':diabetico:', this.valoraCardioDatos.diabetico);
+      res = res.replace(':peso:', this.valoraCardioDatos.peso);
+      res = res.replace(':talla:', this.valoraCardioDatos.talla);
+      res = res.replace(':imc:', this.valoraCardioDatos.imc);
+      res = res.replace(':motivo:', this.valoraCardioDatos.motivo);
+      res = res.replace(':antecedentes_personales:', this.valoraCardioDatos.antecedentes_personales);
+      res = res.replace(':habitos:', this.valoraCardioDatos.habitos);
+      res = res.replace(':examen_fisico:', this.valoraCardioDatos.examen_fisico);
+      res = res.replace(':presion:', this.valoraCardioDatos.presion);
+      res = res.replace(':ritmo:', this.valoraCardioDatos.ritmo);
+      res = res.replace(':fauricular:', this.valoraCardioDatos.fauricular);
+      res = res.replace(':fventricular:', this.valoraCardioDatos.fventricular);
+      res = res.replace(':ejelec:', this.valoraCardioDatos.ejelec);
+      res = res.replace(':complejo_qrs:', this.valoraCardioDatos.complejo_qrs);
+      res = res.replace(':complejo_qtc:', this.valoraCardioDatos.complejo_qtc);
+      res = res.replace(':ondat:', this.valoraCardioDatos.ondat);
+      res = res.replace(':observacion:', this.valoraCardioDatos.observacion);
+      res = res.replace(':dx:', this.valoraCardioDatos.dx);
+      res = res.replace(':riesgo_nivel:', this.valoraCardioDatos.riesgo_nivel);
+      res = res.replace(':escala:', this.valoraCardioDatos.escala);
+      res = res.replace(':sugerencia:', this.valoraCardioDatos.sugerencia);
+      res = res.replace(':profesional:', this.valoraCardioDatos.profesional);
+      res = res.replace(':profesional_registro:', 'R.M.S.P.: ' + this.valoraCardioDatos.profesional_registro);
+      res = res.replace(':dislipidemia:', this.valoraCardioDatos.dislipidemia);
+      res = res.replace(':solicitante:', this.valoraCardioDatos.solicitante);
+      res = res.replace(':tipocirugia:', this.valoraCardioDatos.tipocirugia);
       this.valoraCardio = res;
       this.informeEjecutado.valoraCardio = true;
     },
@@ -1202,6 +1226,7 @@ export default {
         paciente_id: this.$route.params.dato.paciente_id,
         medico_id: this.$route.params.dato.medico_id,
         fecha: this.$route.params.dato.fecha,
+        numero: this.$route.params.dato.numero,
         hora: this.$route.params.dato.hora,
         motivo: this.$route.params.dato.motivo,
         sintomas_subjetivos: this.$route.params.dato.sintomas_subjetivos,
@@ -1211,6 +1236,7 @@ export default {
         diagnostico_descripcion: this.$route.params.dato.diagnostico_descripcion,
         tratamiento: this.$route.params.dato.tratamiento,
         mediciones: this.$route.params.dato.mediciones,
+        examenes: this.$route.params.dato.examenes,
         factura_id: this.$route.params.dato.factura_id,
         sucursal_id: this.$route.params.dato.sucursal_id,
         estado: this.$route.params.dato.estado,
@@ -1263,15 +1289,6 @@ export default {
         };
       }
 
-      /*if (this.$route.params.dato.mediciones.length > 10) {
-        try {
-          this.mediciones = JSON.parse(this.$route.params.dato.mediciones);
-        } catch(e) {
-          console.log("Error de carga de Mediciones:");
-          console.log(e);
-        }
-      }*/
-
       if (this.$route.params.dato.mediciones.length > 10) {
         try {
           this.mediciones = JSON.parse(this.$route.params.dato.mediciones);
@@ -1296,33 +1313,14 @@ export default {
         this.informeEKGDatos.visible = true;
       if (this.consulta.relServicio.relEspecialidad.id == this.informeEcoEspecilidad)
         this.informeEcoVisible = true;
-      if (this.$route.params.dato.relExamenes.length > 0) {
-        // Cargar los examenes seleccionados
-        /*let res = [];
-        this.consulta.relExamenes.forEach(function(ex) {
-          let its = [];
-          ex.items.forEach(function(i) {
-            if (ex.seleccionado.includes(i.id)) {
-              its.push(i);
-            }
-          });
-          if (its.length > 0) {
-            res.push({
-              id: ex.id,
-              denominacion: ex.denominacion,
-              items: its
-            });
-          };
-        });*/
-      }
     }
     if (this.$route.params.lectura != undefined) {
       this.lectura = this.$route.params.lectura;
     }
     this.valoraCardioDatos.paciente = this.consulta.relPaciente.relCliente.nombres;
     this.informeEKGDatos.paciente = this.consulta.relPaciente.relCliente.nombres;
-    this.consulta.informeEco = `<br/><p>Fecha</p><p>${this.$moment(this.consulta.fecha).format('YYYY-MM-DD')}<p/><br/><p>Medico</p><p>${this.consulta.relPaciente.relCliente.nombres}<p/><br/><p>Medico</p><p>${this.consulta.relMedico.nombres}<p/>`;
-    this.consulta.certificado = `<br/><p>Fecha</p><p>${this.$moment(this.consulta.fecha).format('YYYY-MM-DD')}<p/><br/><p>Medico</p><p>${this.consulta.relMedico.nombres}<p/>`;
+    this.consulta.informeEco = `<br/><p>Fecha</p><p>${this.$moment(this.consulta.fecha).format('YYYY-MM-DD')}<p/><br/><p>Paciente</p><p>${this.consulta.relPaciente.relCliente.nombres}<p/><br/><p>Medico</p><p>${this.consulta.relMedico.nombres}<p/>`;
+    this.consulta.certificado = `<br/><p>Fecha</p><p>${this.$moment(this.consulta.fecha).format('YYYY-MM-DD')}<p/><br/><p>Paciente</p><p>${this.consulta.relPaciente.relCliente.nombres}<p/><br/><p>Medico</p><p>${this.consulta.relMedico.nombres}<p/>`;
     if (this.consulta.proxima != undefined) {
       try {
         if (this.consulta.proxima != null)
@@ -1334,20 +1332,33 @@ export default {
       this.consulta.proxima = null;
     }
   },
-  created() {
+  beforeMount() {
     this.$store
       .dispatch("clinica/examenesLista").then(function(r) {
         if (r.id == 1) {
           if (r.respuesta != null) {
-            this.consulta.relExamenes = [];
-            r.respuesta.data.forEach(e => {
-              //let p = e;
+            this.consulta.relExamenes = []
+            r.respuesta.forEach(e => {
               e.seleccionado = [];
               this.consulta.relExamenes.push(e);
             });
+            let lst = []
+            if (this.$route.params.dato.relExamenes != null) {
+              this.consulta.relExamenes.forEach(function(ex) {
+                let f = this.$route.params.dato.relExamenes.find(t => t.examen_id === ex.id)
+                if (f) {
+                  let sel = f.seleccionados.trimLeft().split(" ")
+                  ex.seleccionado = sel
+                }
+                lst.push(ex)
+              }.bind(this))
+              this.consulta.relExamenes = lst
+            }
           }
         }
       }.bind(this));
+  },
+  created() {
     this.$store
       .dispatch("clinica/plantillasPorEstado", 0).then(function(r) {
         try {
@@ -1360,6 +1371,7 @@ export default {
           console.log("No se pudo cargar las plantillas")
         }
       }.bind(this));
+    this.$store.dispatch("clinica/examenesCargarCache")
   }
 }
 </script>
