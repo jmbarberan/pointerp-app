@@ -167,7 +167,7 @@ export default {
       this.ventaConsultas = [];
       this.ventaProductos = [];
       this.$store
-        .dispatch("ventas/ventasBuscarGrupo", this.busquedaDesde, this.busquedaHasta)
+        .dispatch("ventas/ventasBuscarGrupo", { desde: this.busquedaDesde, hasta: this.busquedaHasta})
         .then(function(r) {
           if (r.id == 1) {
             if (r.respuesta.data != undefined) {

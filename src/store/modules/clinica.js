@@ -481,7 +481,7 @@ const clinica = {
       return await axios.post(this.$app.appConfig.apiUrl + consultasGuardarEstado(p.id, p.estado));
     },
     async consultasPacienteLimite(context, p) {
-      return await axios.get(this.$app.appConfig.apiUrl + consultasPacienteLimite(p.id, p.limite));
+      return await axios.get(this.$app.appConfig.apiUrl + consultasPacienteLimite(p.id, p.limite, p.consultaId));
     },
     async buscarConsultasMedicoFecha({state}, p) {
       let estado = state.consultaBuscador.eliminados ? 9 : 0;

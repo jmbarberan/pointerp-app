@@ -1301,7 +1301,8 @@ export default {
         this.$store
         .dispatch("clinica/consultasPacienteLimite", {
           id: this.consulta.paciente_id,
-          limite: 10
+          limite: 10,
+          consultaId: this.consulta.id
         })
         .then(function(r) {
           this.historial = r.data;

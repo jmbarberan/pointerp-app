@@ -4,22 +4,35 @@
       <h6>{{ consulta.relServicio.relEspecialidad.descripcion }}</h6>
       <h6>{{ consulta.relServicio.descripcion }}</h6>
       <div class="text-primary text-small font-weight-medium d-none d-sm-block">{{ consulta.fecha }}</div>
-      <div v-if="consulta.sintomas_subjetivos.length > 0" class="pr-4">
-        <p class="mb-1 text-small"><span class="text-muted theme-color-1">Sintomas</span> {{ consulta.sintomas_subjetivos }}</p>
-      </div>
-      <div v-if="consulta.diagnostico_descripcion.length > 0" class="pr-4">
-        <p class="mb-1 text-small"><span class="text-muted theme-color-1">Diagnostico</span> {{ consulta.diagnostico_descripcion }}</p>
-      </div>
-      <div v-if="consulta.tratamiento.length > 0" class="pr-4">
-        <p class="mb-1 text-small"><span class="text-muted theme-color-1">Tratamiento</span> {{ consulta.tratamiento }}</p>
-      </div> 
       <div v-if="consulta.relMedico != null" class="pr-4">
         <p class="mb-1 text-small"><span class="text-muted theme-color-1">Profesional</span> {{ consulta.relMedico.nombres }}</p>
       </div>
-      <p class="mb-1 text-small"><span class="text-muted theme-color-1">Signos Vitales: </span> {{ traerMediciones() }}</p>
-      <p class="mb-1 text-small"><span class="text-muted theme-color-1">Examenes: </span> {{ traerExamenes() }}</p>
+      <div v-if="consulta.sintomas_subjetivos != null && consulta.sintomas_subjetivos.length > 0" class="pr-4">
+        <p class="mb-1 text-small"><span class="text-muted theme-color-1">Sintomas</span> {{ consulta.sintomas_subjetivos }}</p>
+      </div>
+      <div v-if="consulta.antecedentes != null && consulta.antecedentes.length > 0" class="pr-4">
+        <p class="mb-1 text-small"><span class="text-muted theme-color-1">Antecedentes</span> {{ consulta.antecedentes }}</p>
+      </div>
+      <div v-if="consulta.exploracion_fisica != null && consulta.exploracion_fisica.length > 0" class="pr-4">
+        <p class="mb-1 text-small"><span class="text-muted theme-color-1">Exploracion fisica</span> {{ consulta.exploracion_fisica }}</p>
+      </div>
+      <div v-if="consulta.diagnostico_descripcion != null && consulta.diagnostico_descripcion.length > 0" class="pr-4">
+        <p class="mb-1 text-small"><span class="text-muted theme-color-1">Diagnostico</span> {{ consulta.diagnostico_descripcion }}</p>
+      </div>
+      <div v-if="consulta.laboratorio != null && consulta.laboratorio.length > 0" class="pr-4">
+        <p class="mb-1 text-small"><span class="text-muted theme-color-1">Datos de laboratorio</span> {{ consulta.laboratorio }}</p>
+      </div>
+      <div v-if="consulta.tratamiento != null && consulta.tratamiento.length > 0" class="pr-4">
+        <p class="mb-1 text-small"><span class="text-muted theme-color-1">Tratamiento</span> {{ consulta.tratamiento }}</p>
+      </div>
+      <div class="pr-4">
+        <p class="mb-1 text-small"><span class="text-muted theme-color-1">Signos Vitales: </span> {{ traerMediciones() }}</p>
+      </div>
+      <div v-if="traerExamenes().length > 0" class="pr-4">
+        <p class="mb-1 text-small"><span class="text-muted theme-color-1">Examenes: </span> {{ traerExamenes() }}</p>
+      </div>
     </div>
-  </div>
+  </div>  
 </template>
 <script>
 export default {
@@ -37,6 +50,9 @@ export default {
         try {
           const med = JSON.parse(this.$props.consulta.mediciones);
           let txt = ''
+          if (med.presion != undefined && med.presion.length > 0) {
+            txt +=  `Presion: ${med.presion} (mmHG) `
+          }
           if (med.peso != undefined && med.peso.length > 0) {
             txt +=  `Peso: ${med.peso} (kg) `
           }
@@ -75,6 +91,8 @@ export default {
           sel.forEach(e => {
             let l = this.examenes.find(t => t.id === e)
             if (l) {
+              if (ret.length > 0) {
+               ret += "," }
               ret += " " + l.denominacion
             }
           });

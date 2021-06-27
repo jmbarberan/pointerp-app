@@ -110,8 +110,8 @@ export const consultasGuardarAtencion = function(id) {
   return `${rutaBase}/consultas/${id}/atencion/guardar`;
 }
 
-export const consultasPacienteLimite = function(id, limite) {
-  return `${rutaBase}/consultas/paciente/${id}/limite/${limite}`;
+export const consultasPacienteLimite = function(id, limite, conid) {
+  return `${rutaBase}/consultas/paciente/${id}/limite/${limite}/consulta/${conid}`;
 }
 
 export const consultaPlantillaPorId = function(id) {

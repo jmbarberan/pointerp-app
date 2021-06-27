@@ -115,17 +115,16 @@ const ventas = {
         respuesta: response
       };
     },
-    async ventasBuscarGrupo(context, des, has) {
-      des = moment(des).format('YYYY-MM-DD');
-      has = moment(has).format('YYYY-MM-DD');
+    async ventasBuscarGrupo(context, p) {
+      p.desde = moment(p.desde).format('YYYY-MM-DD');
+      p.hasta = moment(p.hasta).format('YYYY-MM-DD');
       //let p = context.rootState.movimientoBuscador.atributo != null ? context.rootState.movimientoBuscador.atributo.id : 0;
-  
       let ruta = this.$app.appConfig.apiUrl + ventasBuscar(
         1, // Sucursal
         1, // Buscar por fecha
         0, // Estado activo
-        des,
-        has,
+        p.desde,
+        p.hasta,
         0, // Extendidad o normal
         '_'
       );
