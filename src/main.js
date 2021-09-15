@@ -1,11 +1,11 @@
 import Vue from 'vue'
 import App from './App.vue'
-import { createApp } from 'vue'
+//import { createApp } from 'vue'
 import './registerServiceWorker'
 import router from './router'
 import store from './store'
 import BootstrapVue from 'bootstrap-vue'
-import axios from 'axios'
+//import axios from 'axios'
 
 // Multi Language Add
 import en from './locales/en.json'
@@ -92,7 +92,7 @@ Vue.mixin({
       }*/
       this.appConfig = {
         adminRoot: "ecuamedica",
-        apiUrl: 'https://martinbarberan.herokuapp.com' /* http://api.pointerp.local/api/v4 https://martinbarberan.herokuapp.com */
+        apiUrl: 'http://localhost:9090/api/v4' /* http://api.pointerp.local/api/v4 https://martinbarberan.herokuapp.com/api/v4 */
       };
     }
   },

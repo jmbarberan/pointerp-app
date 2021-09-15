@@ -6,13 +6,13 @@
         <b-row>
           <b-colxx xxs="12" sm="6">
             <b-form-group :label="$t('vista.ventas.clientes.campos.codigo')">
-              <b-form-input type="text" v-model="seleccionado.codigo" :state="!$v.seleccionado.codigo.$error"/>
+              <b-form-input type="text" v-model="seleccionado.Codigo" :state="!$v.seleccionado.Codigo.$error"/>
               <b-form-invalid-feedback>Debe digitar el codigo del usuario</b-form-invalid-feedback>
             </b-form-group>
           </b-colxx>
           <b-colxx xxs="12" sm="6">
             <b-form-group :label="$t('vista.ventas.clientes.campos.nombres')">
-              <b-form-input type="text" v-model="seleccionado.nombres" :state="!$v.seleccionado.nombres.$error"/>
+              <b-form-input type="text" v-model="seleccionado.Nombres" :state="!$v.seleccionado.Nombres.$error"/>
               <b-form-invalid-feedback>Debe digitar los nombres del usuario</b-form-invalid-feedback>
             </b-form-group>
           </b-colxx>
@@ -25,17 +25,17 @@
                     <i :class="verClave ? 'mdi mdi-eye-off' : 'mdi mdi-eye'"/>
                   </b-button>
                 </b-input-group-append>
-              </b-input-group>  
+              </b-input-group>
               <b-form-invalid-feedback>Debe digitar la contraseña del usuario</b-form-invalid-feedback>
             </b-form-group>
           </b-colxx>
           <b-colxx xxs="12" sm="6">
             <b-form-group :label="$t('vista.seguridad.usuarios.campos.rol')">
               <b-form-select
-                v-model="seleccionado.rol_id"
+                v-model="seleccionado.RolId"
                 :options="roles"
-                value-field="id"
-                text-field="denominacion"
+                value-field="Id"
+                text-field="Denominacion"
                 size="sm"
               />
             </b-form-group>
@@ -156,34 +156,33 @@ export default {
         },
         { 
           label: this.$t("vista.ventas.clientes.campos.codigo"), 
-          key: "codigo",
+          key: "Codigo",
           sortable: true
         },
         { 
           label: this.$t("vista.ventas.clientes.campos.nombres"), 
-          key: "nombres",
+          key: "Nombres",
           sortable: true
         },
         {
           label: this.$t("vista.seguridad.usuarios.campos.rol"), 
-          key: "relRol.denominacion", 
+          key: "relRol.Denominacion", 
           sortable: true 
         },
         {
           label: this.$t("vista.clinica.consultas.campos.estado"),
-          key: "estado",
+          key: "Estado",
           name: "estado",
           sortable: true
         }
       ],
       usuarios: [],
       seleccionado: {
-        id: 0,
-        codigo: '',
-        nombres: '',
-        clave: '',
-        rol_id: 0,
-        estado: 0
+        Id: 0,
+        Codigo: '',
+        Nombres: '',
+        Clave: '',
+        Estado: 0
       },
       clave: '',
       verEditor: false,
@@ -193,17 +192,14 @@ export default {
   },
   validations: {
     seleccionado: {
-      nombres: {
+      Nombres: {
         required
       },
-      codigo: {
-        required
-      },
-      rol_id: {
+      Codigo: {
         required
       },
     },
-    clave: {
+    Clave: {
       required
     }
   },
@@ -285,10 +281,10 @@ export default {
     },
     usuarioGuardado() {
       if (this.clave.length > 0) {
-        this.seleccionado.clave = md5(this.clave);
+        this.seleccionado.Clave = md5(this.clave);
       } else {
-        if (this.seleccionado.id > 0) {
-          this.clave = this.seleccionado.clave;
+        if (this.seleccionado.Id > 0) {
+          this.clave = this.seleccionado.Clave;
         }
       }
       this.$v.$touch();
@@ -320,7 +316,10 @@ export default {
           }.bind(this))
           .catch(function(e) {
             console.log(e);
-            let msj = "No se puede guardar por error relacionado al servidor";
+            let causa = "desconocido"
+            if (e.message)
+              causa = ": " + e.message;
+            let msj = "No se puede guardar. error " + causa;
             if (e.response.data != undefined);
               msj = e.response.data;
             this.$notify("danger", "Guardar usuario", msj, {
@@ -337,19 +336,18 @@ export default {
     },
     vaciarSeleccionado() {
       this.seleccionado = {
-        id: 0,
-        codigo: '',
-        nombres: '',
-        clave: '',
-        rol_id: 0,
-        estado: 0
+        Id: 0,
+        Codigo: '',
+        Nombres: '',
+        Clave: '',
+        Estado: 0
       }
     },
     restaurar(p) {
-      this.modificarEstado(p.item.id, 0, "Restaurar");
+      this.modificarEstado(p.item.Id, 0, "Restaurar");
     },
     eliminar(p) {
-      this.modificarEstado(p.item.id, 2, "Eliminar");
+      this.modificarEstado(p.item.Id, 2, "Eliminar");
     },
     modificarEstado(pid, pest, cmd) {
       this.busquedaEjecutando = true;
@@ -364,7 +362,7 @@ export default {
 						permanent: false
 					});
           this.listar();
-          this.mensaje(r.data, cmd + " Profesional", "success");
+          this.mensaje(r.data, cmd + " Usuario", "success");
         }.bind(this))
         .catch(function(e) {
           console.log("Error");

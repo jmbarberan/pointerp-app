@@ -177,8 +177,8 @@
       'currentUser'
     ]),
     esMedico() {
-      return this.currentUser != null ? this.currentUser.rol_id-1 >= 4 : false;
-    },                                  
+      return this.currentUser != null ? this.currentUser.RolId-1 >= 4 : false; //  = 0 : Admin
+    },
     busquedaTexto: {
       get () {
         if (this.busquedaTipo == 0)

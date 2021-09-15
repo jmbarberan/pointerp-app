@@ -6,7 +6,7 @@ export default (to, from, next) => {
       const user = getCurrentUser();
       if (user) {
         const roleArrayHierarchic = to.matched.filter(x => x.meta.roles).map(x => x.meta.roles);
-        if (roleArrayHierarchic.every(x => x.includes(user.rol_id-1))) {
+        if (roleArrayHierarchic.every(x => x.includes(user.RolId()-1))) { // 0 : Admin
           next();
         } else {
           next('/unauthorized')

@@ -2,38 +2,6 @@ import { UserRole } from "../utils/auth.roles";
 
 const data = [
   {
-    id: "clinica",
-    icon: "iconsminds-clinic",
-    label: "menu.clinica.titulo",
-    to: `/clinica`,
-    subs: [
-      {
-        icon: "iconsminds-stethoscope",
-        label: "menu.clinica.consultas.titulo",
-        to: `/clinica/consultas`,
-        roles: [UserRole.Admin, UserRole.Medico, UserRole.Enfermeria], 
-      },
-      {
-        icon: "iconsminds-mens",
-        label: "menu.clinica.pacientes.titulo",
-        to: `/clinica/pacientes`,
-        roles: [UserRole.Admin], 
-      },
-      {
-        icon: "iconsminds-doctor",
-        label: "menu.clinica.medicos.titulo",
-        to: `/clinica/medicos`,
-        roles: [UserRole.Admin], 
-      },
-      {
-        icon: "iconsminds-receipt-4",
-        label: "menu.clinica.servicios.titulo",
-        to: `/clinica/servicios`,
-        roles: [UserRole.Admin], 
-      },
-    ]
-  },
-  {
     id: "ventas",
     icon: "iconsminds-management",
     label: "menu.ventas.titulo",

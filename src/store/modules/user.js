@@ -60,7 +60,7 @@ export default {
     async login({ commit }, payload) {
       commit('clearError')
       commit('setProcessing', true);
-      commit("clinica/setMedicoUsuario", 0);
+      //commit("clinica/setMedicoUsuario", 0);
       var params = JSON.stringify({
         "usr": payload.usuario,
         "cla": md5(payload.clave)
@@ -89,7 +89,7 @@ export default {
     signOut({ commit }) {
       setCurrentUser(null);
       // vaciar listas de cache de busquedas de ventanas
-      commit("clinica/setMedicoUsuario", 0);
+      //commit("clinica/setMedicoUsuario", 0);
       commit('setLogout');
     }
   }

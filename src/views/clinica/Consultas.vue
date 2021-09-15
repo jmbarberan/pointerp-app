@@ -81,7 +81,7 @@
                 v-b-tooltip.hover
                 title="Iniciar atencion"
               ><i class="mdi mdi-stethoscope mdi-18px"/></span>
-              <span v-if="row.item.estado == 0 && currentUser.rol_id == 1"
+              <span v-if="row.item.estado == 0 && currentUser.RolId == 1"
                 class="span-comando pt-1" 
                 @click="imprimirTicket(row.item)"
                 v-b-tooltip.hover
@@ -312,10 +312,10 @@ export default {
       'currentUser'
     ]),
     esMedico() {
-      return this.currentUser != undefined ? this.currentUser.rol_id-1 == 4 : false;
+      return this.currentUser != undefined ? this.currentUser.RolId-1 == 4 : false;
     },
     esMedicoEnfermero() {
-      return this.currentUser != undefined ? this.currentUser.rol_id-1 >= 4 : false;
+      return this.currentUser != undefined ? this.currentUser.RolId-1 >= 4 : false;
     },
     total() {
       if (!this.busquedaEjecutando) {

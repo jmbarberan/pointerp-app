@@ -95,7 +95,7 @@ export default new Vuex.Store({
   modules: {
     menu,
     user,
-    clinica: modClinica,
+    //clinica: modClinica,
     ajustes: modAjustes,
     inventarios: modInventarios,
     seguridad: modSeguridad,

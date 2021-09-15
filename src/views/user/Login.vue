@@ -67,56 +67,56 @@ const {
 
 export default {
     data() {
-			return {
-				crendencial: {
-					usuario: "",
-					clave: ""
-				},
-			};
+        return {
+            crendencial: {
+                usuario: "",
+                clave: ""
+            },
+        };
     },
     mixins: [validationMixin],
     validations: {
-			crendencial: {
-				clave: {
-					required,
-				},
-				usuario: {
-					required,
-				}
-			}
+        crendencial: {
+            clave: {
+                required,
+            },
+            usuario: {
+                required,
+            }
+        }
     },
     computed: {
       ...mapGetters(["currentUser", "processing", "loginError"])
     },
     methods: {
-			...mapActions(["login"]),
-			formSubmit() {
-				this.$v.$touch();
-				this.$v.crendencial.$touch();
-				if (!this.$v.crendencial.$anyError) {
-					this.login({
-						usuario: this.crendencial.usuario,
-						clave: this.crendencial.clave
-					});
-				}
-			}
+        ...mapActions(["login"]),
+        formSubmit() {
+            this.$v.$touch();
+            this.$v.crendencial.$touch();
+            if (!this.$v.crendencial.$anyError) {
+                this.login({
+                    usuario: this.crendencial.usuario,
+                    clave: this.crendencial.clave
+                });
+            }
+        }
     },
     watch: {
-			currentUser(val) {
-				if (val && val.id && val.nombres.length > 0) {
-					setTimeout(() => {
-						this.$router.push("/");
-					}, 200);
-				}
-			},
-			loginError(val) {
-				if (val != null) {
-					this.$notify("error", "Login Error", val, {
-						duration: 3000,
-						permanent: false
-					});
-				}
-			}
+        currentUser(val) {
+            if (val && val.id && val.nombres.length > 0) {
+                setTimeout(() => {
+                    this.$router.push("/");
+                }, 200);
+            }
+        },
+        loginError(val) {
+            if (val != null) {
+                this.$notify("error", "Login Error", val, {
+                    duration: 3000,
+                    permanent: false
+                });
+            }
+        }
     }
 };
 </script>
