@@ -37,7 +37,7 @@
             <i class="mdi mdi-24px mdi-find-replace"/>
           </a>
         </div>
-        <div class="float-md-right pt-1">
+        <div class="float-md-right pt-2">
           <b-button
             variant="empty"
             class="pt-0 pl-0 d-inline-block d-md-none"
@@ -98,34 +98,34 @@ export default {
     "cambiarPagina"
   ],
   computed: {
-    ...mapGetters('clinica', [
-      'buscaPacienteTexto',
-      'buscaPacienteExtendida',
-      'buscaPacienteEliminados',
+    ...mapGetters('maestros', [
+      'buscaTablaTexto',
+      'buscaTablaExtendida',
+      'buscaTablaEliminados',
       'busquedaAtributo'
     ]),
     busquedaTexto: {
       get () {
-        return this.buscaPacienteTexto;
+        return this.buscaTablaTexto;
       },
       set (value) {
-        this.$store.commit('clinica/setBuscaTablasTexto', value)
+        this.$store.commit('maestros/setBuscaTablasTexto', value)
       }
     },
     busquedaExtendida: {
       get: function() {
-        return this.buscaPacienteExtendida;
+        return this.buscaTablaExtendida;
       },
       set: function(val) {
-        this.$store.commit("clinica/setBuscaTablasExtendida", val);
+        this.$store.commit("maestros/setBuscaTablasExtendida", val);
       }
     },
     busquedaEliminados: {
       get: function() {
-        return this.buscaPacienteEliminados;
+        return this.buscaTablaEliminados;
       },
       set: function(val) {
-        this.$store.commit("clinica/setBuscaTablasEliminados", val);
+        this.$store.commit("maestros/setBuscaTablasEliminados", val);
       }
     },
     busquedaAtributoProp: {
@@ -136,8 +136,8 @@ export default {
   },
   methods: {
     busquedaCambiarAtributo(id) {
-      this.$store.commit("clinica/setBusquedaAtributo", this.busquedaAtributos[id]);
-      this.$store.commit("clinica/setBusquedaAtributoIdx", id);
+      this.$store.commit("maestros/setBusquedaAtributo", this.busquedaAtributos[id]);
+      this.$store.commit("maestros/setBusquedaAtributoIdx", id);
     }
   },
 }

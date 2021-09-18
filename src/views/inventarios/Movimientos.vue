@@ -32,19 +32,19 @@
               <table-busy mensaje="Ejecutando consulta..." />
             </template>
             <template #cell(acciones)="row">
-              <span v-if="row.item.estado == 0"
+              <span v-if="row.item.Estado == 0"
                 class="span-comando mdi mdi-pen mdi-18px mr-2"
                 @click="modificar(row)"
                 v-b-tooltip.hover
                 title="Modificar"
               />
-              <span v-if="row.item.estado == 0"
+              <span v-if="row.item.Estado == 0"
                 class="span-comando mdi mdi-trash-can-outline mdi-18px" 
                 @click="eliminar(row)"
                 v-b-tooltip.hover
                 title="Eliminar"
               />
-              <span v-if="row.item.estado == 2"
+              <span v-if="row.item.Estado == 2"
                 class="span-comando mdi mdi-restore mdi-18px" 
                 @click="restaurar(row)"
                 v-b-tooltip.hover
@@ -52,11 +52,11 @@
               />
             </template>
             <template #cell(fecha)="fila">
-              {{ formatearFecha(fila.item.fecha) }}
+              {{ formatearFecha(fila.item.Fecha) }}
             </template>
             <template #cell(estado)="fila">
-              <b-badge :variant="$t('vista.estados.colores.' + fila.item.estado)">
-                {{ $t('vista.estados.' + fila.item.estado) }}
+              <b-badge :variant="$t('vista.estados.colores.' + fila.item.Estado)">
+                {{ $t('vista.estados.' + fila.item.Estado) }}
               </b-badge>
             </template>
           </b-table>
@@ -120,17 +120,17 @@ export default {
         },
         { 
           label: this.$t("vista.transacciones.campos.numero"), 
-          key: "numero",
+          key: "Numero",
           sortable: true
         },
         { 
           label: this.$t("vista.transacciones.campos.fecha"), 
-          key: "fecha",
+          key: "Fecha",
           sortable: true,
         },
         {
           label: this.$t("vista.transacciones.campos.concepto"), 
-          key: "descripcion", 
+          key: "Descripcion", 
           sortable: true 
         },
         {
@@ -208,7 +208,7 @@ export default {
         }.bind(this));
     },
     modificar(p) {
-      this.abrirEditor(this.rutaModificar, p.item.id, p.item);
+      this.abrirEditor(this.rutaModificar, p.item.Id, p.item);
     },
     crear() {
       this.abrirEditor(this.rutaNuevo, 0, null);
@@ -225,10 +225,10 @@ export default {
       });
     },
     restaurar(p) {
-      this.modificarEstado(p.item.id, 0);
+      this.modificarEstado(p.item.Id, 0);
     },
     eliminar(p) {
-      this.modificarEstado(p.item.id, 2);
+      this.modificarEstado(p.item.Id, 2);
     },
     modificarEstado(pid, pestado) {
       let comando = "Eliminar";
@@ -269,7 +269,7 @@ export default {
       this.$store
         .dispatch("inventarios/cacheBuscadorTipo", p)
         .then(function(ccbusca) {
-          this.$store.commit('setBuscaMovimientosTipo', ccbusca.tipo);
+          this.$store.commit('setBuscaMovimientosTipomov', ccbusca.tipomov);
           this.$store.commit('inventarios/setBuscacheMovimientosTipo', { tipo: p, valor: 0 });
           if (ccbusca != undefined && ccbusca.lista.length > 0) {
             this.movimientos = ccbusca.lista;
@@ -349,7 +349,7 @@ export default {
       .then(function(r) {
         this.$store.commit('setBuscaMovimientosControItems', r.data);
         this.$store.commit("setBuscaMovimientosAtributo", r.data[0]);
-      }.bind(this));  
+      }.bind(this));
   },
   mounted() {
     this.cargarTipo(this.tipoId);

@@ -334,6 +334,7 @@
         "buscar": "Buscar producto",
         "lista-titulo": "Lista de productos",
         "editor-titulo": "Datos del producto",
+        "grabado-iva": "Grabado con I.V.A.",
         "campos": {
           "producto": "Producto",
           "codigo": "Codigo",
@@ -431,7 +432,7 @@
       "egresos-nuevo": "nuevo",
       "egresos-modificar": "modificar",
       "fisico": {
-        "titulo": "egresos",
+        "titulo": "fisico",
         "nuevo": "nuevo",
         "modificar": "modificar"
       },

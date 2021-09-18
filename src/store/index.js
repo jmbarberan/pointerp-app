@@ -37,7 +37,8 @@ export default new Vuex.Store({
       extendida: false,
       eliminados: false,
       atributo: null,
-      controlItems: []
+      controlItems: [],
+      tipomov: 0
     },
     /*api: {
       ruta: this._vm
@@ -48,6 +49,7 @@ export default new Vuex.Store({
     buscaMovimientosDesde: state => state.movimientoBuscador.desde,
     buscaMovimientosHasta: state => state.movimientoBuscador.hasta,
     buscaMovimientosTipo: state => state.movimientoBuscador.tipo,
+    buscaMovimientosTipomov: state => state.movimientoBuscador.tipomov,
     buscaMovimientosAtributo: state => state.movimientoBuscador.atributo,
     buscaMovimientosExtendida: state => state.movimientoBuscador.extendida,
     buscaMovimientosEliminados: state => state.movimientoBuscador.eliminados,
@@ -70,6 +72,9 @@ export default new Vuex.Store({
     },
     setBuscaMovimientosTipo(state, p) {
       state.movimientoBuscador.tipo = p;
+    },
+    setBuscaMovimientosTipomov(state, p) {
+      state.movimientoBuscador.tipomov = p;
     },
     setBuscaMovimientosAtributo(state, p) {
       state.movimientoBuscador.atributo = p;

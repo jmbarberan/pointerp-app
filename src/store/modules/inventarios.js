@@ -14,6 +14,13 @@ import {
   existenciasCeroTodos
 } from "@/rutas/inventarios";
 
+import { tipoBodegaIngreso, 
+  tipoBodegaEgreso, 
+  tipoCompra, 
+  tipoNotaIngreso,
+  tipoInventarioFisico
+ } from "../../constants/tipos"
+
 const inventarios = {
   namespaced: true,
   state: {
@@ -46,6 +53,18 @@ const inventarios = {
       eliminados: false,
       atributo: null,
       lista: [],
+      tipomov: tipoCompra
+    },
+    notasingBuscadorCache: {
+      texto: "",
+      desde: null,
+      hasta: null,
+      tipo: 0,
+      extendida: false,
+      eliminados: false,
+      atributo: null,
+      lista: [],
+      tipomov: tipoNotaIngreso
     },
     ingresosBuscadorCache: {
       texto: "",
@@ -56,6 +75,7 @@ const inventarios = {
       eliminados: false,
       atributo: null,
       lista: [],
+      tipomov: tipoBodegaIngreso
     },
     egresosBuscadorCache: {
       texto: "",
@@ -66,6 +86,7 @@ const inventarios = {
       eliminados: false,
       atributo: null,
       lista: [],
+      tipomov: tipoBodegaEgreso
     },
     fisicosBuscadorCache: {
       texto: "",
@@ -76,6 +97,7 @@ const inventarios = {
       eliminados: false,
       atributo: null,
       lista: [],
+      tipomov: tipoInventarioFisico
     }
   },
   getters: {
@@ -136,10 +158,11 @@ const inventarios = {
     // Cache de Movimientos bodega
     setBuscacheMovimientosDesde(state, p) {
       switch (p.tipo) {
-        case 6: { state.ingresosBuscadorCache.desde = p.valor; break; }
-        case 7: { state.egresosBuscadorCache.desde = p.valor; break; }
-        case 8: { state.fisicosBuscadorCache.desde = p.valor; break; }
-        case 19: { state.comprasBuscadorCache.desde = p.valor; break; }
+        case tipoBodegaIngreso: { state.ingresosBuscadorCache.desde = p.valor; break; }
+        case tipoBodegaEgreso: { state.egresosBuscadorCache.desde = p.valor; break; }
+        case tipoInventarioFisico: { state.fisicosBuscadorCache.desde = p.valor; break; }
+        case tipoCompra: { state.comprasBuscadorCache.desde = p.valor; break; }
+        case tipoNotaIngreso: { state.notasingBuscadorCache.desde = p.valor; break; }
       }
     },
     setBuscacheMovimientosHasta(state, p) {
@@ -148,6 +171,7 @@ const inventarios = {
         case 7: { state.egresosBuscadorCache.hasta = p.valor; break; }
         case 8: { state.fisicosBuscadorCache.hasta = p.valor; break; }
         case 19: { state.comprasBuscadorCache.hasta = p.valor; break; }
+        case 20: { state.notasingBuscadorCache.hasta = p.valor; break; }
       }
     },
     setBuscacheMovimientosTipo(state, p) {
@@ -156,6 +180,7 @@ const inventarios = {
         case 7: { state.egresosBuscadorCache.tipo = p.valor; break; }
         case 8: { state.fisicosBuscadorCache.tipo = p.valor; break; }
         case 19: { state.comprasBuscadorCache.tipo = p.valor; break; }
+        case 20: { state.notasingBuscadorCache.tipo = p.valor; break; }
       }
     },
     setBuscacheMovimientosAtributo(state, p) {
@@ -164,6 +189,7 @@ const inventarios = {
         case 7: { state.egresosBuscadorCache.atributo = p.valor; break; }
         case 8: { state.fisicosBuscadorCache.atributo = p.valor; break; }
         case 19: { state.comprasBuscadorCache.atributo = p.valor; break; }
+        case 20: { state.notasingBuscadorCache.atributo = p.valor; break; }
       }
     },
     setBuscacheMovimientosTexto(state, p) {
@@ -172,6 +198,7 @@ const inventarios = {
         case 7: { state.egresosBuscadorCache.texto = p.valor; break; }
         case 8: { state.fisicosBuscadorCache.texto = p.valor; break; }
         case 19: { state.comprasBuscadorCache.texto = p.valor; break; }
+        case 20: { state.notasingBuscadorCache.texto = p.valor; break; }
       }
     },
     setBuscacheMovimientosExtendida(state, p) {
@@ -180,6 +207,7 @@ const inventarios = {
         case 7: { state.egresosBuscadorCache.extendida = p.valor; break; }
         case 8: { state.fisicosBuscadorCache.extendida = p.valor; break; }
         case 19: { state.comprasBuscadorCache.extendida = p.valor; break; }
+        case 20: { state.notasingBuscadorCache.extendida = p.valor; break; }
       }
     },
     setBuscacheMovimientosEliminados(state, p) {
@@ -188,6 +216,7 @@ const inventarios = {
         case 7: { state.egresosBuscadorCache.eliminados = p.valor; break; }
         case 8: { state.fisicosBuscadorCache.eliminados = p.valor; break; }
         case 19: { state.comprasBuscadorCache.eliminados = p.valor; break; }
+        case 20: { state.notasingBuscadorCache.eliminados = p.valor; break; }
       }
     },
     setBuscacheMovimientosLista(state, p) {
@@ -196,6 +225,7 @@ const inventarios = {
         case 7: { state.egresosBuscadorCache.lista = p.valor; break; }
         case 8: { state.fisicosBuscadorCache.lista = p.valor; break; }
         case 19: { state.comprasBuscadorCache.lista = p.valor; break; }
+        case 20: { state.notasingBuscadorCache.lista = p.valor; break; }
       }
     },
   },
@@ -203,21 +233,22 @@ const inventarios = {
     cacheBuscadorTipo({state}, ptipo) {
       let ret = null;
       switch (ptipo) {
-        case 6: {ret = state.ingresosBuscadorCache; break;}
-        case 7: {ret = state.egresosBuscadorCache; break;}
-        case 8: {ret = state.fisicosBuscadorCache; break;}
+        case 6:  {ret = state.ingresosBuscadorCache; break;}
+        case 7:  {ret = state.egresosBuscadorCache; break;}
+        case 8:  {ret = state.fisicosBuscadorCache; break;}
         case 19: {ret = state.comprasBuscadorCache; break;}
+        case 20: {ret = state.notasingBuscadorCache; break;}
       }
       return ret;
     },
     async productosBuscar(context) {
-      let tipo = context.rootState.clinica.tablasBuscador.extendida ? 1 : 0;
-      let estado = context.rootState.clinica.tablasBuscador.eliminados ? 9 : 0;
+      let tipo = context.rootState.maestros.tablasBuscador.extendida ? 1 : 0;
+      let estado = context.rootState.maestros.tablasBuscador.eliminados ? 9 : 0;
       let p = {
         tipo: tipo,
-        atributo: context.rootState.clinica.tablasBuscador.atributoIdx,
+        atributo: context.rootState.maestros.tablasBuscador.atributoIdx,
         estado: estado,
-        texto: context.rootState.clinica.tablasBuscador.texto
+        texto: context.rootState.maestros.tablasBuscador.texto
       };
       return await context.dispatch("productosBuscarMin", p);
     },
@@ -317,15 +348,17 @@ const inventarios = {
       }
       let bod = context.rootState.movimientoBuscador.atributo != null ? context.rootState.movimientoBuscador.atributo.id : 0;
       let estado = context.rootState.movimientoBuscador.eliminados ? 9 : 0;
-      let tipo = context.rootState.movimientoBuscador.extendida ? 1 : 0;
+      let tipobusca = context.rootState.movimientoBuscador.extendida ? 1 : 0;
+      let tipo = 8;
       let ruta = this.$app.appConfig.apiUrl + movimientosBuscar(
-        tipo,
+        tipobusca,
         txt,
         estado,
         des,
         has,
         context.rootState.movimientoBuscador.tipo,
-        bod
+        bod,
+        context.rootState.movimientoBuscador.tipomov
       );
       const response = await axios.get(ruta, context.rootState.remotoConfig)
         .catch(e => {

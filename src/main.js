@@ -109,7 +109,7 @@ Vue.mixin({
   render: function (h) { return h(App) }
 }).$mount('#app')*/
 
-export const app = new Vue({
+export default app = new Vue({
   i18n,
   router,
   store,

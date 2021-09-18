@@ -30,8 +30,8 @@ export const  movimientoPorId = function(id) {
   return `${rutaBase}/movimientos/${id}`;
 };
 
-export const movimientosBuscar = function(tipo, filtro, estado, desde, hasta, clase, bodega) {
-  return `${rutaBase}/movimientos/bodega/${bodega}/clase/${clase}/estado/${estado}/desde/${desde}/hasta/${hasta}/tipo/${tipo}/filtro/${filtro}/buscar`;
+export const movimientosBuscar = function(tipobusca, filtro, estado, desde, hasta, clase, bodega, tipo) {
+  return `${rutaBase}/movimientos/bodega/${bodega}/clase/${clase}/estado/${estado}/desde/${desde}/hasta/${hasta}/tipobusca/${tipobusca}/tipo/${tipo}/filtro/${filtro}/buscar`;
 }
 
 export const movimientoModificarEstado = function(id, estado) {

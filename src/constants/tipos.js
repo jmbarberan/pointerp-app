@@ -60,4 +60,6 @@ export const tipoDevolucion = 13;
 export const tipoNotaCredito = 14;
 export const tipoBodegaIngreso = 6;
 export const tipoBodegaEgreso = 7;
+export const tipoInventarioFisico = 8;
 export const tipoCompra = 19;
+export const tipoNotaIngreso = 20;

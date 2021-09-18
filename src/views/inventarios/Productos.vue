@@ -32,24 +32,24 @@
               <table-busy mensaje="Ejecutando consulta..." />
             </template>
             <template #cell(estado)="fila">
-              <b-badge :variant="$t('vista.estados.colores.' + fila.item.estado)">
-                {{ $t('vista.estados.' + fila.item.estado) }}
+              <b-badge :variant="$t('vista.estados.colores.' + fila.item.Estado)">
+                {{ $t('vista.estados.' + fila.item.Estado) }}
               </b-badge>
             </template>
             <template #cell(acciones)="row">
-              <span v-if="row.item.estado == 0"
+              <span v-if="row.item.Estado == 0"
                 class="span-comando mdi mdi-pen mdi-18px mr-2" 
                 @click="modificar(row)"
                 v-b-tooltip.hover 
                 title="Modificar"
               />
-              <span v-if="row.item.estado == 0"
+              <span v-if="row.item.Estado == 0"
                 class="span-comando mdi mdi-trash-can-outline mdi-18px" 
                 @click="eliminar(row)"
                 v-b-tooltip.hover
                 title="Eliminar"
               />
-              <span v-if="row.item.estado == 2"
+              <span v-if="row.item.Estado == 2"
                 class="span-comando mdi mdi-restore mdi-18px" 
                 @click="restaurar(row)"
                 v-b-tooltip.hover
@@ -120,23 +120,29 @@ export default {
         },
         { 
           label: this.$t("vista.inventarios.productos.campos.codigo"), 
-          key: "codigo",
+          key: "Codigo",
           sortable: true
         },
         { 
           label: this.$t("vista.inventarios.productos.campos.nombre"), 
-          key: "nombre",
+          key: "Nombre",
           sortable: true
         },
         {
           label: this.$t("vista.inventarios.productos.campos.medida"), 
-          key: "medida", 
-          sortable: true },
-        {
-          label: this.$t("vista.inventarios.productos.campos.precio"),
-          key: "precio",
-          sortable: true
+          key: "Medida", 
+          sortable: true 
         },
+        {
+          label: this.$t("vista.inventarios.productos.campos.categoria"), 
+          key: "relCategoria.Denominacion", 
+          sortable: true 
+        },
+        /*{
+          label: this.$t("vista.inventarios.productos.campos.precio"),
+          key: "Precio",
+          sortable: true
+        },*/
         {
           label: this.$t("vista.clinica.consultas.campos.estado"),
           key: "estado",
@@ -232,7 +238,7 @@ export default {
         }.bind(this));
     },
     modificar(p) {
-      this.abrirEditor("productos-modificar", p.item.id, p.item);
+      this.abrirEditor("productos-modificar", p.item.Id, p.item);
     },
     crear() {
       this.abrirEditor("productos-crear", 0, null);
@@ -285,51 +291,51 @@ export default {
     if (this.$store.state.inventarios.productosBuscadorCache.lista.length > 0) {
       this.productos = this.$store.state.inventarios.productosBuscadorCache.lista;
       this.$store.commit('inventarios/setCacheBusquedaProductosLista', []);
-    }
+    }    
     if (this.$store.state.inventarios.productosBuscadorCache.texto.length > 0) {
-      this.$store.commit('clinica/setBuscaTablasTexto', this.$store.state.clinica.productosBuscadorCache.texto);
+      this.$store.commit('maestros/setBuscaTablasTexto', this.$store.state.inventarios.productosBuscadorCache.texto);
       this.$store.commit('inventarios/setCacheBusquedaProductosTexto', '');
     }
     if (this.$store.state.inventarios.productosBuscadorCache.atributo.length > 0) {
-      this.$store.commit('clinica/setBusquedaAtributo', this.$store.state.clinica.productosBuscadorCache.atributo);
+      this.$store.commit('maestros/setBusquedaAtributo', this.$store.state.inventarios.productosBuscadorCache.atributo);
       this.$store.commit('inventarios/setCacheBusquedaProductosAtributo', '');
     } else {
-      this.$store.commit("clinica/setBusquedaAtributo", "Nombre");
+      this.$store.commit("maestros/setBusquedaAtributo", "Nombre");
     }
     if (this.$store.state.inventarios.productosBuscadorCache.atributoIdx > 0) {
-      this.$store.commit('clinica/setBusquedaAtributoIdx', this.$store.state.clinica.productosBuscadorCache.atributoIdx);
+      this.$store.commit('maestros/setBusquedaAtributoIdx', this.$store.state.inventarios.productosBuscadorCache.atributoIdx);
       this.$store.commit('inventarios/setCacheBusquedaProductosAtributoIdx', 0);
     }
     if (this.$store.state.inventarios.productosBuscadorCache.extendida) {
-      this.$store.commit('clinica/setBuscaTablasExtendida', this.$store.state.clinica.productosBuscadorCache.extendida);
+      this.$store.commit('maestros/setBuscaTablasExtendida', this.$store.state.inventarios.productosBuscadorCache.extendida);
       this.$store.commit('inventarios/setCacheBusquedaProductosExtendida', false);
     }
     if (this.$store.state.inventarios.productosBuscadorCache.eliminados) {
-      this.$store.commit('clinica/setBuscaTablasExtendida', this.$store.state.clinica.productosBuscadorCache.eliminados);
+      this.$store.commit('maestros/setBuscaTablasExtendida', this.$store.state.inventarios.productosBuscadorCache.eliminados);
       this.$store.commit('inventarios/setCacheBusquedaProductosEliminados', false);
     }
   },
   beforeDestroy() {
-    this.$store.commit('clinica/setCacheBusquedaProductosLista', this.productos);
-    if (this.$store.state.tablasBuscador.texto.length > 0) {
-      this.$store.commit('inventarios/setCacheBusquedaProductosTexto', this.$store.state.tablasBuscador.texto);
-      this.$store.commit('clinica/setBuscaTablasTexto', '');
+    this.$store.commit('inventarios/setCacheBusquedaProductosLista', this.productos);
+    if (this.$store.state.maestros.tablasBuscador.texto.length > 0) {
+      this.$store.commit('inventarios/setCacheBusquedaProductosTexto', this.$store.state.maestros.tablasBuscador.texto);
+      this.$store.commit('maestros/setBuscaTablasTexto', '');
     }
-    if (this.$store.state.tablasBuscador.atributo.length > 0) {
-      this.$store.commit('inventarios/setCacheBusquedaProductosAtributo', this.$store.state.tablasBuscador.atributo);
-      this.$store.commit('clinica/setBusquedaAtributo', '');
+    if (this.$store.state.maestros.tablasBuscador.atributo.length > 0) {
+      this.$store.commit('inventarios/setCacheBusquedaProductosAtributo', this.$store.state.maestros.tablasBuscador.atributo);
+      this.$store.commit('maestros/setBusquedaAtributo', '');
     }
-    if (this.$store.state.tablasBuscador.atributoIdx > 0) {
-      this.$store.commit('inventarios/setCacheBusquedaProductosAtributoIdx', this.$store.state.tablasBuscador.atributoIdx);
-      this.$store.commit('clinica/setBusquedaAtributoIdx', 0);
+    if (this.$store.state.maestros.tablasBuscador.atributoIdx > 0) {
+      this.$store.commit('inventarios/setCacheBusquedaProductosAtributoIdx', this.$store.state.maestros.tablasBuscador.atributoIdx);
+      this.$store.commit('maestros/setBusquedaAtributoIdx', 0);
     }
-    if (this.$store.state.tablasBuscador.extendida) {
-      this.$store.commit('inventarios/setCacheBusquedaProductosExtendida', this.$store.state.tablasBuscador.extendida);
-      this.$store.commit('clinica/setBuscaTablasExtendida', false);
+    if (this.$store.state.maestros.tablasBuscador.extendida) {
+      this.$store.commit('inventarios/setCacheBusquedaProductosExtendida', this.$store.state.maestros.tablasBuscador.extendida);
+      this.$store.commit('maestros/setBuscaTablasExtendida', false);
     }
-    if (this.$store.state.tablasBuscador.eliminados) {
-      this.$store.commit('inventarios/setCacheBusquedaProductosEliminados', this.$store.state.tablasBuscador.eliminados);
-      this.$store.commit('clinica/setBuscaTablasEliminados', false);
+    if (this.$store.state.maestros.tablasBuscador.eliminados) {
+      this.$store.commit('inventarios/setCacheBusquedaProductosEliminados', this.$store.state.maestros.tablasBuscador.eliminados);
+      this.$store.commit('maestros/setBuscaTablasEliminados', false);
     }
   }
 }

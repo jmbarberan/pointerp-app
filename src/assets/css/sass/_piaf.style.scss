@@ -4655,7 +4655,7 @@ input:-webkit-autofill {
     color: $primary-color;
   }
 
-  &:after {
+  /*&:after {
     font-family: "simple-line-icons";
     content: "\e090";
     font-size: 14px;
@@ -4667,7 +4667,7 @@ input:-webkit-autofill {
     text-align: center;
     cursor: pointer;
     top: 2px;
-  }
+  }*/
 }
 
 .fecha-sm {

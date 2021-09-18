@@ -308,7 +308,7 @@ export default {
         let ret = menuItems
         ? menuItems.filter(
             (x) =>
-              !x.roles || (x.roles && x.roles.includes(this.currentUser.RolId()-1))
+              !x.roles || (x.roles && x.roles.includes(this.currentUser.RolId-1))
           )
         : [];
         return ret;

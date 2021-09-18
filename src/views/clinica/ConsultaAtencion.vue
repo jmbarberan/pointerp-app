@@ -859,7 +859,7 @@ export default {
       'currentUser'
     ]),
     esAdmin() {
-      return this.currentUser != null && this.currentUser.RolId()-1 == 0
+      return this.currentUser != null && this.currentUser.RolId-1 == 0
     }
   },
   methods: {
