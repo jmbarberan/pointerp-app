@@ -1,5 +1,7 @@
 # pointerapp
 
+Bussiness Management frontend app made with Vue.js
+
 ## Project setup
 ```
 npm install
