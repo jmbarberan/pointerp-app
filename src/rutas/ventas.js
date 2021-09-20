@@ -16,3 +16,7 @@ export const ventasBuscar = function(sucursal, clase, estado, desde, hasta, tipo
 export const ventaGuardar = function() {
   return `${rutaBase}/comprobantes/guardar`;
 };
+
+export const ventaModificarEstado = function(id, estado) {
+  return `${rutaBase}/comprobantes/${id}/modificar/estado/${estado}`;
+}

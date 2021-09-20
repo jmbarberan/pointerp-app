@@ -379,7 +379,7 @@ export default {
       }
     } else {
       this.movimiento.tipo = this.$route.params.tipoId;
-      this.fechaProp = this.$moment.format('YYYY-MM-DD').toDate();
+      this.fechaProp = this.$moment().format('YYYY-MM-DD').toDate();
     }
   }
 }

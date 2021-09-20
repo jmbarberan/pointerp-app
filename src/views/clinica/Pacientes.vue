@@ -328,7 +328,7 @@ export default {
     if (this.$store.state.clinica.tablasBuscador.eliminados) {
       this.$store.commit('clinica/setCacheBusquedaPacientesEliminados', this.$store.state.clinica.tablasBuscador.eliminados);
       this.$store.commit('clinica/setBuscaTablasEliminados', false);
-    }
+    } 
   }
 }
 </script>

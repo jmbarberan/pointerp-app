@@ -210,7 +210,7 @@
                   </b-colxx>
                 </b-row>
               </template>
-              <b-table responsive :items="consulta.recetaItems" :fields="recetaCampos" >
+              <b-table responsive :items="consulta.recetaItems" :fields="recetaCampos" primary-key="clave" >
                 <template #cell(comandos)="fila">
                   <span
                     class="span-comando pt-1"
@@ -277,7 +277,7 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr v-for="item in consulta.recetaItems" :key="item.id" style="padding-top: 0px;">
+                                  <tr v-for="item in consulta.recetaItems" :key="item.clave" style="padding-top: 0px;">
                                     <td style="padding-top:0px; padding-bottom:18px;">
                                       <p style="font-size: 11px; line-height: 1; margin-bottom:0; color:#303030; font-weight:500; margin-top: 0px;">
                                         <span v-if="item.relProducto == null || item.producto_id <= 0">{{ item.descripcion }}</span>
@@ -301,7 +301,7 @@
                                   </tr>
                                 </thead>
                                 <tbody>
-                                  <tr v-for="item in consulta.recetaItems" :key="item.id" style="padding-top: 10px;">
+                                  <tr v-for="item in consulta.recetaItems" :key="item.clave" style="padding-top: 10px;">
                                     <td style="padding-top:5px; padding-bottom:0px;">
                                       <p style="font-size: 11px; line-height: 1; margin-bottom:0; color:#303030; font-weight:500; margin-top: 0px;">
                                         <span v-if="item.relProducto == null || item.producto_id <= 0">{{ item.descripcion }}</span>
@@ -572,8 +572,9 @@
             <h6>Adicionales</h6>
             <b-form-input class="mb-4" v-model="consulta.examenes" size="sm" :disabled="lectura"/>
             <div class="examenes">
+              <p>Marcar los examenes a realizar</p>
               <b-form-group
-                v-for="exa in consulta.relExamenes"
+                v-for="exa in examenesItems"
                 :key="exa.id"
                 :label="exa.denominacion"
               >
@@ -592,55 +593,112 @@
           <div id="prnExamenes">
             <b-row class="medioA4 invisible">
               <b-colxx xxs="12" class="mb-5">
-                <div style="background-color:#ffffff; height:660px; max-width:830px; font-family: Helvetica,Arial,sans-serif !important; position: relative;">
-                  <table bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0" style="width:100%; background-color:#ffffff;border-collapse:separate !important; border-spacing:0;color:#242128; margin:0; padding-left:30px; padding-right:30px;" heigth="auto">
+                <div style="background-color:#ffffff; height:660px; width: 100%; display: table; font-family: Helvetica,Arial,sans-serif !important; position: relative;">
+                  <table>
                     <tbody>
-                      <tr>
-                        <td align="left" valign="center" style="padding-bottom:35px; padding-top:15px; border-top:0;width:100% !important;">
-                          <img src="@/assets/logos/black.png" />
-                        </td>
-                        <td align="right" valign="center" style="padding-bottom:20px;border-top:0;width:100% !important;">
-                          <p style="color: #8f8f8f; font-weight: normal; line-height: 1.2; font-size: 12px; white-space: nowrap; ">
-                            {{ empresa.lema }}<br> {{ empresa.direccion }}<br> {{ empresa.telefonos }}
-                          </p>
-                        </td>
-                      </tr>
-                      <tr>
-                        <td colspan="2">
-                          <table style="width: 100%;">
-                            <tbody>
-                              <tr>
-                                <td style="vertical-align:middle; border-radius: 3px; padding:15px; background-color: #f9f9f9; border-right: 5px solid white;">
-                                  <p>
-                                    <span style="color:#303030; font-size: 11px;  line-height: 1.6; margin:0; padding:0;">Paciente:</span> {{ consulta.relPaciente.relCliente.nombres }} <br/>
-                                    <span style="color:#303030; font-size: 11px;  line-height: 1.6; margin:0; padding:0;">Medico:</span> {{ consulta.relMedico.nombres }}
-                                  </p>
-                                </td>
-                                <td style="text-align: right; padding-top:0px; padding-bottom:0; vertical-align:middle; padding:15px; background-color: #f9f9f9; border-radius: 3px; border-left: 5px solid white;">
-                                  <p style="color:#8f8f8f; font-size: 11px; padding: 0; line-height: 1.6; margin:0; ">
-                                    ORDEN DE EXAMENES<br>
-                                    {{ consulta.fecha }}
-                                  </p>
-                                </td>
-                              </tr>
-                              <tr style="margin-top: 10px; margin-bottom: 10px">
-                                <td>
-                                  <p>Otros examenes: {{ consulta.examenes }}</p>
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
-                          <div style="display: flex; flex-wrap: wrap;">
-                            <div style="font-size: 10px; padding-right: 30px" v-for="sel in examenesSeleccion" :key="sel.id">
-                              <h5 class="mb-1">{{ sel.denominacion }}</h5>
-                              <div v-for="item in sel.items" :key="item.id">  
-                                <p style="padding-left: 10px; font-size: 9px" class="mb-1">{{ item.denominacion }}</p>
-                              </div>
-                            </div>
-                          </div>
-                        </td>
-                      </tr>
-                    </tbody>
+                      <td>
+                        <table bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0" style="width:40%; background-color:#ffffff;border-collapse:separate !important; border-spacing:0;color:#242128; margin:0;" heigth="auto">
+                          <tbody>
+                            <tr>
+                              <td align="left" valign="center" style="padding-bottom:35px; padding-top:15px; border-top:0;width:100% !important;">
+                                <img src="@/assets/logos/black.png" />
+                              </td>
+                              <td align="right" valign="center" style="padding-bottom:20px;border-top:0;width:100% !important;">
+                                <p style="color: #8f8f8f; font-weight: normal; line-height: 1.2; font-size: 12px; white-space: nowrap; ">
+                                  {{ empresa.lema }}<br> {{ empresa.direccion }}<br> {{ empresa.telefonos }}
+                                </p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="2">
+                                <table style="width: 100%;">
+                                  <tbody>
+                                    <tr>
+                                      <td style="vertical-align:middle; border-radius: 3px; padding:15px; background-color: #f9f9f9; border-right: 5px solid white;">
+                                        <p>
+                                          <span style="color:#303030; font-size: 11px;  line-height: 1.6; margin:0; padding:0;">Paciente:</span> {{ consulta.relPaciente.relCliente.nombres }} <br/>
+                                          <span style="color:#303030; font-size: 11px;  line-height: 1.6; margin:0; padding:0;">Medico:</span> {{ consulta.relMedico.nombres }}
+                                        </p>
+                                      </td>
+                                      <td style="text-align: right; padding-top:0px; padding-bottom:0; vertical-align:middle; padding:15px; background-color: #f9f9f9; border-radius: 3px; border-left: 5px solid white;">
+                                        <p style="color:#8f8f8f; font-size: 11px; padding: 0; line-height: 1.6; margin:0; ">
+                                          ORDEN DE EXAMENES<br>
+                                          {{ consulta.fecha }}
+                                        </p>
+                                      </td>
+                                    </tr>
+                                    <tr style="margin-top: 10px; margin-bottom: 10px">
+                                      <td>
+                                        <p>Otros examenes: {{ consulta.examenes }}</p>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                                <div style="display: flex; flex-wrap: wrap;">
+                                  <div style="font-size: 10px; padding-right: 30px" v-for="sel in examenesSeleccion" :key="sel.id">
+                                    <h5 class="mb-1">{{ sel.denominacion }}</h5>
+                                    <div v-for="item in sel.items" :key="item.clave">  
+                                      <p style="padding-left: 10px; font-size: 9px" class="mb-1">{{ item.denominacion }}</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                      <td>
+                        <table bgcolor="#ffffff" border="0" cellpadding="0" cellspacing="0" style="width:40%; background-color:#ffffff;border-collapse:separate !important; border-spacing:0;color:#242128; margin:0;" heigth="auto">
+                          <tbody>
+                            <tr>
+                              <td align="left" valign="center" style="padding-bottom:35px; padding-top:15px; border-top:0;width:100% !important;">
+                                <img src="@/assets/logos/black.png" />
+                              </td>
+                              <td align="right" valign="center" style="padding-bottom:20px;border-top:0;width:100% !important;">
+                                <p style="color: #8f8f8f; font-weight: normal; line-height: 1.2; font-size: 12px; white-space: nowrap; ">
+                                  {{ empresa.lema }}<br> {{ empresa.direccion }}<br> {{ empresa.telefonos }}
+                                </p>
+                              </td>
+                            </tr>
+                            <tr>
+                              <td colspan="2">
+                                <table style="width: 100%;">
+                                  <tbody>
+                                    <tr>
+                                      <td style="vertical-align:middle; border-radius: 3px; padding:15px; background-color: #f9f9f9; border-right: 5px solid white;">
+                                        <p>
+                                          <span style="color:#303030; font-size: 11px;  line-height: 1.6; margin:0; padding:0;">Paciente:</span> {{ consulta.relPaciente.relCliente.nombres }} <br/>
+                                          <span style="color:#303030; font-size: 11px;  line-height: 1.6; margin:0; padding:0;">Medico:</span> {{ consulta.relMedico.nombres }}
+                                        </p>
+                                      </td>
+                                      <td style="text-align: right; padding-top:0px; padding-bottom:0; vertical-align:middle; padding:15px; background-color: #f9f9f9; border-radius: 3px; border-left: 5px solid white;">
+                                        <p style="color:#8f8f8f; font-size: 11px; padding: 0; line-height: 1.6; margin:0; ">
+                                          ORDEN DE EXAMENES<br>
+                                          {{ consulta.fecha }}
+                                        </p>
+                                      </td>
+                                    </tr>
+                                    <tr style="margin-top: 10px; margin-bottom: 10px">
+                                      <td>
+                                        <p>Otros examenes: {{ consulta.examenes }}</p>
+                                      </td>
+                                    </tr>
+                                  </tbody>
+                                </table>
+                                <div style="display: flex; flex-wrap: wrap;">
+                                  <div style="font-size: 10px; padding-right: 30px" v-for="sel in examenesSeleccion" :key="sel.id">
+                                    <h5 class="mb-1">{{ sel.denominacion }}</h5>
+                                    <div v-for="item in sel.items" :key="item.clave">  
+                                      <p style="padding-left: 10px; font-size: 9px" class="mb-1">{{ item.denominacion }}</p>
+                                    </div>
+                                  </div>
+                                </div>
+                              </td>
+                            </tr>
+                          </tbody>
+                        </table>
+                      </td>
+                    </tbody>  
                   </table>
                 </div>
               </b-colxx>
@@ -806,7 +864,9 @@ export default {
       examenesSeleccion: [],
       informeEcoVisible: false,
       informeEcoEspecilidad: 27,
-      lectura: false
+      lectura: false,
+      clave: 1,
+      examenesItems: []
     }
   },
   computed: {
@@ -866,7 +926,6 @@ export default {
     traerIniciales(txt) {
       txt = txt.replace("   ", " ");
       txt = txt.replace("  ", " ");
-
       return txt
         .split(" ")
         .map(item => item.charAt(0))
@@ -926,7 +985,7 @@ export default {
     guardar() {
       this.procesando = true;
       let exs = [];
-      this.consulta.relExamenes.forEach(function(ex) {
+      this.examenesItems.forEach(function(ex) {
         let its = "";
         ex.items.forEach(function(i) {
           if (ex.seleccionado.includes(i.id)) {
@@ -943,7 +1002,6 @@ export default {
         };
       });
       this.consulta.examenesSel = exs;
-      console.log(exs);
       this.consulta.estado = 3;
       this.$store
         .dispatch("clinica/consultaGuardar", this.consulta)
@@ -970,6 +1028,7 @@ export default {
     },
     agregarItem() {
       let item = {
+        clave: this.agregarClave(), 
         id: 0,
         consulta_id: this.consulta.id,
         producto_id: this.productoSeleccion.id,
@@ -993,18 +1052,12 @@ export default {
       if (this.consulta.recetaItems.length == 1) {
         this.consulta.recetaItems = [];
       } else {
-        if (this.consulta.id > 0) {
-          var ret = this.consulta.recetaItems.filter(x => {
-            return x.id != p.item.id;
-          });
-          this.consulta.recetaItems = ret;  
-        } else {
-          var ret = this.consulta.recetaItems.filter(x => {
-            return x.relProducto.id != p.item.relProducto.id;
-          });
-          this.consulta.recetaItems = ret;  
+        let ret = this.consulta.recetaItems.filter(x => {
+          return x.clave != p.item.clave;
+        });
+        if (ret.length < this.consulta.recetaItems.length) {
+          this.consulta.recetaItems = ret;
         }
-        
       }
     },
     buscarProducto() {
@@ -1096,7 +1149,7 @@ export default {
     },
     examenesImprimir() {
       let res = [];
-      this.consulta.relExamenes.forEach(function(ex) {
+      this.examenesItems.forEach(function(ex) {
         let its = [];
         ex.items.forEach(function(i) {
           if (ex.seleccionado.includes(i.id)) {
@@ -1218,6 +1271,10 @@ export default {
         this.$refs.txDosis.$el.select();
       }
     },
+    agregarClave() {
+      this.clave = this.clave + 1
+      return this.clave;
+    },
   },
   mounted() {
     if (this.$route.params.dato != undefined) {
@@ -1246,7 +1303,20 @@ export default {
         relServicio: this.$route.params.dato.relServicio,
         recetaItems: this.$route.params.dato.recetaItems,
         proxima: this.$route.params.dato.proxima,
-        laboratorio: this.$route.params.dato.laboratorio
+        laboratorio: this.$route.params.dato.laboratorio,
+        antecedentes: this.$route.params.dato.antecedentes
+      }
+
+      if (this.consulta.paciente_id > 0) {
+        this.$store
+        .dispatch("clinica/consultasPacienteLimite", {
+          id: this.consulta.paciente_id,
+          limite: 10,
+          consultaId: this.consulta.id
+        })
+        .then(function(r) {
+          this.historial = r.data;
+        }.bind(this));
       }
 
       if (this.$route.params.dato.relServicio != undefined) {
@@ -1297,17 +1367,6 @@ export default {
         }
       }
 
-      if (this.consulta.paciente_id > 0) {
-        this.$store
-        .dispatch("clinica/consultasPacienteLimite", {
-          id: this.consulta.paciente_id,
-          limite: 10,
-          consultaId: this.consulta.id
-        })
-        .then(function(r) {
-          this.historial = r.data;
-        }.bind(this));
-      }
       if (this.consulta.relServicio.relEspecialidad.id == this.informeEKGDatos.especialidadId)
         this.informeEKGDatos.visible = true;
       if (this.consulta.relServicio.relEspecialidad.id == this.valoraCardioDatos.especialidadId)
@@ -1332,29 +1391,41 @@ export default {
     } else {
       this.consulta.proxima = null;
     }
+
+    let ri = [];
+    this.consulta.recetaItems.forEach(e => {
+      let itm = {
+        clave: this.agregarClave(), 
+        id: e.id,
+        consulta_id: e.consulta_id,
+        producto_id: e.producto_id,
+        cantidad: e.cantidad,
+        dosis: e.dosis,
+        descripcion: e.descripcion,
+        relProducto: e.relProducto
+      }
+      ri.push(itm);
+    });
+    this.consulta.recetaItems = ri;
   },
-  beforeMount() {
+  beforeCreate() {
     this.$store
       .dispatch("clinica/examenesLista").then(function(r) {
         if (r.id == 1) {
           if (r.respuesta != null) {
-            this.consulta.relExamenes = []
+            var examenes_lista = [];
             r.respuesta.forEach(e => {
               e.seleccionado = [];
-              this.consulta.relExamenes.push(e);
+              let enc = this.$route.params.dato.relExamenes.find(t => t.examen_id === e.id);
+              if (enc) {
+                let seles = enc.seleccionados.trimLeft().split(" ");
+                e.seleccionado = seles;
+              }
+              examenes_lista.push(e);
             });
-            let lst = []
-            if (this.$route.params.dato.relExamenes != null) {
-              this.consulta.relExamenes.forEach(function(ex) {
-                let f = this.$route.params.dato.relExamenes.find(t => t.examen_id === ex.id)
-                if (f) {
-                  let sel = f.seleccionados.trimLeft().split(" ")
-                  ex.seleccionado = sel
-                }
-                lst.push(ex)
-              }.bind(this))
-              this.consulta.relExamenes = lst
-            }
+            this.examenesItems = examenes_lista
+          } else {
+            console.log("respuesta es nulo u otra cosa");
           }
         }
       }.bind(this));

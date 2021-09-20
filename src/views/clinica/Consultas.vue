@@ -112,9 +112,9 @@
                     @click="modificar(row.item)"
                   > Modificar</span>
                 </b-dropdown-item>
-                <b-dropdown-item v-if="row.item.estado == 3 && esMedico">
+                <b-dropdown-item v-if="row.item.estado == 3 && (esMedico || currentUser.rol_id == 1)">
                   <span
-                    class="span-comando mdi mdi-pen mdi-18px" 
+                    class="span-comando mdi mdi-pen mdi-18px"
                     @click="reactivar(row.item)"
                   > Reactivar</span>
                 </b-dropdown-item>
@@ -124,7 +124,7 @@
                     @click="eliminar(row.item)"
                   > Eliminar</span>
                 </b-dropdown-item>
-                <b-dropdown-item v-if="row.item.estado == 2 || row.item.estado == 0 && !esMedico">
+                <b-dropdown-item v-if="(row.item.estado == 2 || row.item.estado == 0) && !esMedico">
                   <span
                     class="span-comando mdi mdi-update mdi-18px" 
                     @click="reprogramar(row.item)"

@@ -262,7 +262,7 @@ export default {
         comando = "Restaurar";
       this.busquedaEjecutando = true;
       this.$store
-        .dispatch("inventarios/movimientoModificarEstado", {
+        .dispatch("ventas/ventasModificarEstado", {
           id: pid,
           estado: pestado
          })

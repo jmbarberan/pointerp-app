@@ -297,13 +297,13 @@ export default {
           }
           if (ccbusca.desde != null) {
             this.$store.commit('setBuscaMovimientosDesde', this.$moment(ccbusca.desde).toDate());
-            this.$store.commit('inventarios/setBuscacheMovimientosDesde', { tipo: p, valor: this.$moment.format('YYYY-MM-DD') });
+            this.$store.commit('inventarios/setBuscacheMovimientosDesde', { tipo: p, valor: this.$moment().format('YYYY-MM-DD') });
           } else {
             this.$store.commit('setBuscaMovimientosDesde', new Date());
           }
           if (ccbusca.hasta != null) {
             this.$store.commit('setBuscaMovimientosHasta', this.$moment(ccbusca.hasta).toDate());
-            this.$store.commit('inventarios/setBuscacheMovimientosHasta', { tipo: p, valor: this.$moment.format('YYYY-MM-DD') });
+            this.$store.commit('inventarios/setBuscacheMovimientosHasta', { tipo: p, valor: this.$moment().format('YYYY-MM-DD') });
           } else {
             this.$store.commit('setBuscaMovimientosHasta', new Date());
           }

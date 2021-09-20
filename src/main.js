@@ -92,7 +92,10 @@ Vue.mixin({
       }*/
       this.appConfig = {
         adminRoot: "ecuamedica",
-        apiUrl: 'http://localhost:9090/api/v4' /* http://api.pointerp.local/api/v4 https://martinbarberan.herokuapp.com/api/v4 */
+<<<<<<< HEAD        apiUrl: 'http://localhost:9090/api/v4' /* http://api.pointerp.local/api/v4 https://martinbarberan.herokuapp.com/api/v4 */
+=======
+        apiUrl: 'http://api.pointerp.local/api/v4' /* http://localhost:8082/api/v4 http://api.pointerp.local/api/v4 https://martinbarberan.herokuapp.com/api/v4 */
+>>>>>>> 84c4c256a98f5784b8b8484403a3c28ee9159104
       };
     }
   },
