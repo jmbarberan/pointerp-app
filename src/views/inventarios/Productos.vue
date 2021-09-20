@@ -293,25 +293,16 @@ export default {
       this.$store.commit('inventarios/setCacheBusquedaProductosLista', []);
     }    
     if (this.$store.state.inventarios.productosBuscadorCache.texto.length > 0) {
-<<<<<<< HEAD
       this.$store.commit('maestros/setBuscaTablasTexto', this.$store.state.inventarios.productosBuscadorCache.texto);
       this.$store.commit('inventarios/setCacheBusquedaProductosTexto', '');
     }
     if (this.$store.state.inventarios.productosBuscadorCache.atributo.length > 0) {
       this.$store.commit('maestros/setBusquedaAtributo', this.$store.state.inventarios.productosBuscadorCache.atributo);
-=======
-      this.$store.commit('clinica/setBuscaTablasTexto', this.$store.state.inventarios.productosBuscadorCache.texto);
-      this.$store.commit('inventarios/setCacheBusquedaProductosTexto', '');
-    }
-    if (this.$store.state.inventarios.productosBuscadorCache.atributo.length > 0) {
-      this.$store.commit('clinica/setBusquedaAtributo', this.$store.state.inventarios.productosBuscadorCache.atributo);
->>>>>>> 84c4c256a98f5784b8b8484403a3c28ee9159104
       this.$store.commit('inventarios/setCacheBusquedaProductosAtributo', '');
     } else {
       this.$store.commit("maestros/setBusquedaAtributo", "Nombre");
     }
     if (this.$store.state.inventarios.productosBuscadorCache.atributoIdx > 0) {
-<<<<<<< HEAD
       this.$store.commit('maestros/setBusquedaAtributoIdx', this.$store.state.inventarios.productosBuscadorCache.atributoIdx);
       this.$store.commit('inventarios/setCacheBusquedaProductosAtributoIdx', 0);
     }
@@ -321,23 +312,11 @@ export default {
     }
     if (this.$store.state.inventarios.productosBuscadorCache.eliminados) {
       this.$store.commit('maestros/setBuscaTablasExtendida', this.$store.state.inventarios.productosBuscadorCache.eliminados);
-=======
-      this.$store.commit('clinica/setBusquedaAtributoIdx', this.$store.state.inventarios.productosBuscadorCache.atributoIdx);
-      this.$store.commit('inventarios/setCacheBusquedaProductosAtributoIdx', 0);
-    }
-    if (this.$store.state.inventarios.productosBuscadorCache.extendida) {
-      this.$store.commit('clinica/setBuscaTablasExtendida', this.$store.state.inventarios.productosBuscadorCache.extendida);
-      this.$store.commit('inventarios/setCacheBusquedaProductosExtendida', false);
-    }
-    if (this.$store.state.inventarios.productosBuscadorCache.eliminados) {
-      this.$store.commit('clinica/setBuscaTablasExtendida', this.$store.state.inventarios.productosBuscadorCache.eliminados);
->>>>>>> 84c4c256a98f5784b8b8484403a3c28ee9159104
       this.$store.commit('inventarios/setCacheBusquedaProductosEliminados', false);
     }
   },
   beforeDestroy() {
     this.$store.commit('inventarios/setCacheBusquedaProductosLista', this.productos);
-<<<<<<< HEAD
     if (this.$store.state.maestros.tablasBuscador.texto.length > 0) {
       this.$store.commit('inventarios/setCacheBusquedaProductosTexto', this.$store.state.maestros.tablasBuscador.texto);
       this.$store.commit('maestros/setBuscaTablasTexto', '');
@@ -357,27 +336,6 @@ export default {
     if (this.$store.state.maestros.tablasBuscador.eliminados) {
       this.$store.commit('inventarios/setCacheBusquedaProductosEliminados', this.$store.state.maestros.tablasBuscador.eliminados);
       this.$store.commit('maestros/setBuscaTablasEliminados', false);
-=======
-    if (this.$store.state.clinica.tablasBuscador.texto.length > 0) {
-      this.$store.commit('inventarios/setCacheBusquedaProductosTexto', this.$store.state.clinica.tablasBuscador.texto);
-      this.$store.commit('clinica/setBuscaTablasTexto', '');
-    }
-    if (this.$store.state.clinica.tablasBuscador.atributo.length > 0) {
-      this.$store.commit('inventarios/setCacheBusquedaProductosAtributo', this.$store.state.clinica.tablasBuscador.atributo);
-      this.$store.commit('clinica/setBusquedaAtributo', '');
-    }
-    if (this.$store.state.clinica.tablasBuscador.atributoIdx > 0) {
-      this.$store.commit('inventarios/setCacheBusquedaProductosAtributoIdx', this.$store.state.clinica.tablasBuscador.atributoIdx);
-      this.$store.commit('clinica/setBusquedaAtributoIdx', 0);
-    }
-    if (this.$store.state.clinica.tablasBuscador.extendida) {
-      this.$store.commit('inventarios/setCacheBusquedaProductosExtendida', this.$store.state.clinica.tablasBuscador.extendida);
-      this.$store.commit('clinica/setBuscaTablasExtendida', false);
-    }
-    if (this.$store.state.clinica.tablasBuscador.eliminados) {
-      this.$store.commit('inventarios/setCacheBusquedaProductosEliminados', this.$store.state.clinica.tablasBuscador.eliminados);
-      this.$store.commit('clinica/setBuscaTablasEliminados', false);
->>>>>>> 84c4c256a98f5784b8b8484403a3c28ee9159104
     }
   }
 }
